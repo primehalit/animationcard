@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AnimationCard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card active">
+        <img src="image/image1.jpg" alt="Card 1" />
+      </div>
+      <div class="card">
+        <img src="image/image2.jpg" alt="Card 2" />
+      </div>
+      <div class="card">
+        <img src="image/image3.jpg" alt="Card 3" />
+      </div>
+      <div class="card">
+        <img src="image/image4.jpg" alt="Card 4" />
+      </div>
+      <div class="card">
+        <img src="image/image5.jpg" alt="Card 5" />
+      </div>
+      <div class="card">
+        <img src="image/image6.jpg" alt="Card 6" />
+      </div>
+      <div class="card">
+        <img src="image/image7.jpg" alt="Card 7" />
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.card');
+      
+        // Kartlara tıklama etkileşimi ekliyoruz
+        cards.forEach(card => {
+          card.addEventListener('click', () => {
+            // Tüm kartlardan 'active' sınıfını kaldır
+            cards.forEach(item => item.classList.remove('active'));
+            // Tıklanan karta 'active' sınıfını ekle
+            card.classList.add('active');
+          });
+        });
+      
+        // Fare hareketine göre kartları dinamik şekilde hareket ettirelim
+        window.addEventListener('mousemove', (e) => {
+          const cards = document.querySelectorAll('.card');
+          cards.forEach(card => {
+            const { x, y } = card.getBoundingClientRect();
+            const centerX = x + card.offsetWidth / 2;
+            const centerY = y + card.offsetHeight / 2;
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - centerY;
+      
+            const tiltX = (deltaY / 10) * 0.6;
+            const tiltY = (deltaX / 10) * 0.6;
+      
+            card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`; /* 3D dönüşüm */
+          });
+        });
+      });
+      
+    </script>
+  </body>
+</html>
